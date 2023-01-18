@@ -28,7 +28,7 @@ def page2():
     dt = datetime.now()
     return {
         "status": True,
-        "name": "Z Messenger",
+        "name": "👽 Messenger",
         "time": time.time(),
         "time1": time.asctime(),
         "time2": dt,
@@ -41,16 +41,14 @@ def page2():
 @app.route("/send", methods=["POST"])
 def send_message():
     data = request.json
-    if not isinstance(data, dict):
-        return abort(400)
 
     name = data.get("name")
     text = data.get("text")
 
-    if not isinstance(name, str) or len(name) == 0:
+    if not name:
         return abort(400)
 
-    if not isinstance(text, str) or len(text) == 0 or len(text) > 1000:
+    if not text or len(text) > 1000:
         return abort(400)
 
     message = {"name": name, "text": text, "time": time.time()}

@@ -1,19 +1,23 @@
+import os
 from datetime import datetime
 
 import requests
 from PyQt6 import QtWidgets, QtCore
 from clientui import Ui_MainWindow
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MESSENGER_HOST = os.getenv("MESSENGER_HOST") or "http://127.0.0.1:5000"
 
 
 class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self, host="127.0.0.1:5000"):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
-        self.host = host
-
+        self._host = MESSENGER_HOST
         self.pushButton.pressed.connect(self.send_message)
-
         self.after = 0
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.get_messages)
@@ -29,9 +33,10 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
     def get_messages(self):
         try:
             response = requests.get(
-                "https://" + self.host + "/messages?", params={"after": self.after}
+                self._host + "/messages", params={"after": self.after}
             )
-        except:
+        except Exception as e:
+            print(e)
             return
 
         messages = response.json()["messages"]
@@ -44,9 +49,10 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
         text = self.textEdit.toPlainText()
         try:
             response = requests.post(
-                "https://" + self.host + "/send", json={"name": name, "text": text}
+                self._host + "/send", json={"name": name, "text": text}
             )
-        except:
+        except Exception as e:
+            print(e)
             self.textBrowser.append("Сервер недоступен")
             self.textBrowser.append("Попробуйте еще раз")
             self.textBrowser.append("")
@@ -63,6 +69,6 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 app = QtWidgets.QApplication([])
-window = Messenger("6356-31-128-252-135.eu.ngrok.io")
+window = Messenger()
 window.show()
 app.exec()

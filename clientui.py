@@ -48,8 +48,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Z Messenger"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "👽 Messenger"))
         self.pushButton.setText(_translate("MainWindow", ">"))
         self.textEdit.setPlaceholderText(_translate("MainWindow", "Введите текст..."))
         self.label.setText(_translate("MainWindow", "Имя:"))
-        self.label_2.setText(_translate("MainWindow", "Z Messenger"))
+        self.label_2.setText(_translate("MainWindow", "👽 Messenger"))
