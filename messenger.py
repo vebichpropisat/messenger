@@ -63,6 +63,6 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 app = QtWidgets.QApplication([])
-window = Messenger("8595-31-128-252-135.eu.ngrok.io")
+window = Messenger("6356-31-128-252-135.eu.ngrok.io")
 window.show()
 app.exec()
