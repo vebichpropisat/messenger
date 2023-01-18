@@ -17,6 +17,7 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self._host = MESSENGER_HOST
+        print(self._host)
         self.pushButton.pressed.connect(self.send_message)
         self.after = 0
         self.timer = QtCore.QTimer()
@@ -39,6 +40,10 @@ class Messenger(QtWidgets.QMainWindow, Ui_MainWindow):
             print(e)
             return
 
+        if response.status_code != 200:
+            print(f"BAD RESPONSE {response.status_code}")
+            print(response)
+            return
         messages = response.json()["messages"]
         for message in messages:
             self.print_message(message)
