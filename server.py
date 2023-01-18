@@ -4,18 +4,7 @@ from datetime import datetime
 from flask import Flask, request, abort
 
 app = Flask(__name__)
-messages = [
-    {
-        "name": "Jack",
-        "text": "Привет всем, я Jack",
-        "time": 1614887855.3456457,
-    },
-    {
-        "name": "Mary",
-        "text": "Привет Jack, я - Mary",
-        "time": 1614887857.3456457,
-    },
-]
+messages = []
 
 
 @app.route("/")
